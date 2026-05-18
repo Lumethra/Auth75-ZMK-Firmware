@@ -1,0 +1,6 @@
+if SHIELD_AUTH75
+
+config ZMK_KEYBOARD_NAME
+    default "Auth75"
+
+endif # SHIELD_AUTH75
