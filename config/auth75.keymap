@@ -1,5 +1,6 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/encoder.h>
 
 / {
     keymap {
@@ -22,9 +23,10 @@
                 &kp LSHIFT  &kp Z       &kp X       &kp C       &kp V       &kp B       &kp N       &kp M       &kp COMMA   &kp DOT     &kp FSLH    &kp RSHIFT  &kp UP      &none
                 &kp LCTRL   &kp LGUI    &kp LALT    &kp SPACE   &kp RALT    &mo 1       &kp RCTRL   &kp LEFT    &kp DOWN    &kp RIGHT   &kp C_PP    &kp C_MUTE  &none       &none
             >;
-        }; 
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
         fn {
-            display-name = "FN Layer"; 
+            display-name = "FN Layer";
             bindings = <
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
@@ -33,6 +35,7 @@
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
             >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };
