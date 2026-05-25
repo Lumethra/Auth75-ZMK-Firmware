@@ -21,3 +21,4 @@
 include:
   - board: rpi_pico2/rp2350a/m33
     shield: auth75
+    artifact-name: auth75-rpi_pico2-zmk
