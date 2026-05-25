@@ -17,4 +17,4 @@ features:
   - studio  # Remove this line if your keyboard will not support ZMK Studio
 
 requires:
-  - raspberrypi_pico_w
+  - raspberrypi_pico2
