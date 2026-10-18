@@ -80,3 +80,18 @@
         triggers-per-rotation = <20>;
     };
 };
+
+&i2c1 {
+    status = "okay";
+    pinctrl-0 = <&i2c1_default>;
+    pinctrl-names = "default";
+
+    pca9536: pca9536@41 {
+        compatible = "nxp,pca95xx";
+        reg = <0x41>;
+        gpio-controller;
+        #gpio-cells = <2>;
+        ngpios = <4>;
+        status = "okay";
+    };
+};
