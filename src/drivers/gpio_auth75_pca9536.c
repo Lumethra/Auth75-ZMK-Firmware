@@ -33,13 +33,15 @@ struct auth75_pca9536_data {
 
 static int auth75_pca9536_write(const struct auth75_pca9536_config *cfg,
                                 uint8_t reg, uint8_t value) {
+    uint8_t write_buf[] = {reg, value};
     int ret;
 
     for (int attempt = 0; attempt < PCA9536_I2C_RETRIES; attempt++) {
-        ret = i2c_reg_write_byte_dt(&cfg->bus, reg, value);
+        ret = i2c_write_dt(&cfg->bus, write_buf, sizeof(write_buf));
         if (ret != -EAGAIN) {
             return ret;
         }
+        (void)i2c_recover_bus(cfg->bus.bus);
         k_msleep(1);
     }
 
