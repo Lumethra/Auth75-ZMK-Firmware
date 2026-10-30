@@ -16,11 +16,6 @@
             label = "Fingerprint White LED";
         };
 
-        green_led: led_1 {
-            gpios = <&pca9536 1 GPIO_ACTIVE_HIGH>;
-            label = "Fingerprint Green LED";
-        };
-
         red_led: led_2 {
             gpios = <&pca9536 2 GPIO_ACTIVE_HIGH>;
             label = "Fingerprint Red LED";
@@ -113,5 +108,12 @@
         #gpio-cells = <2>;
         ngpios = <4>;
         status = "okay";
+
+        green_led_boot: green_led_boot {
+            gpio-hog;
+            gpios = <1 GPIO_ACTIVE_HIGH>;
+            output-high;
+            line-name = "fingerprint-green-led";
+        };
     };
 };
