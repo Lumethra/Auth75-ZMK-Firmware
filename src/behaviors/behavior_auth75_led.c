@@ -25,12 +25,22 @@ static const struct gpio_dt_spec red_led =
     GPIO_DT_SPEC_GET(DT_NODELABEL(red_led), gpios);
 
 static int set_led(const struct gpio_dt_spec *led, bool on) {
+    int ret;
+
     if (!device_is_ready(led->port)) {
-        LOG_ERR("Auth75 LED GPIO controller is not ready");
+        LOG_ERR("Auth75 LED GPIO controller is not ready: %s", led->port->name);
         return -ENODEV;
     }
 
-    return gpio_pin_set_dt(led, on);
+    ret = gpio_pin_configure_dt(led, GPIO_OUTPUT_INACTIVE);
+    if (ret < 0) {
+        LOG_ERR("Auth75 LED configure failed on pin %u: %d", led->pin, ret);
+        return ret;
+    }
+
+    ret = gpio_pin_set_dt(led, on);
+    LOG_INF("Auth75 LED pin %u set to %d (ret %d)", led->pin, on, ret);
+    return ret;
 }
 
 static int auth75_led_binding_pressed(struct zmk_behavior_binding *binding,
@@ -43,6 +53,8 @@ static int auth75_led_binding_pressed(struct zmk_behavior_binding *binding,
         LOG_ERR("Invalid Auth75 LED command: %d", binding->param1);
         return -EINVAL;
     }
+
+    LOG_INF("Auth75 LED command: %d", binding->param1);
 
     ret = set_led(&white_led, binding->param1 == AUTH75_LED_WHITE);
     if (ret < 0) {
