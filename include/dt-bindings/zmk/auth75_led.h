@@ -1,0 +1,4 @@
+#define AUTH75_LED_OFF 0
+#define AUTH75_LED_WHITE 1
+#define AUTH75_LED_GREEN 2
+#define AUTH75_LED_RED 3

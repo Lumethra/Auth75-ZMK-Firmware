@@ -8,6 +8,13 @@
 #include "auth75-layouts.dtsi"
 
 / {
+    behaviors {
+        aled: aled {
+            compatible = "zmk,behavior-auth75-led";
+            #binding-cells = <1>;
+        };
+    };
+
     leds {
         compatible = "gpio-leds";
 

@@ -1,0 +1,3 @@
+description: Auth75 fingerprint LED control
+compatible: "zmk,behavior-auth75-led"
+include: one_param.yaml
