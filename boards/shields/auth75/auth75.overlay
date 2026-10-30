@@ -12,6 +12,7 @@
         led_white: led_white {
             compatible = "zmk,behavior-led-control";
             #binding-cells = <0>;
+            status = "okay";
             gpios = <&pca9536 0 GPIO_ACTIVE_HIGH>,
                     <&pca9536 1 GPIO_ACTIVE_HIGH>,
                     <&pca9536 2 GPIO_ACTIVE_HIGH>;
@@ -22,6 +23,7 @@
         led_green: led_green {
             compatible = "zmk,behavior-led-control";
             #binding-cells = <0>;
+            status = "okay";
             gpios = <&pca9536 0 GPIO_ACTIVE_HIGH>,
                     <&pca9536 1 GPIO_ACTIVE_HIGH>,
                     <&pca9536 2 GPIO_ACTIVE_HIGH>;
@@ -32,6 +34,7 @@
         led_red: led_red {
             compatible = "zmk,behavior-led-control";
             #binding-cells = <0>;
+            status = "okay";
             gpios = <&pca9536 0 GPIO_ACTIVE_HIGH>,
                     <&pca9536 1 GPIO_ACTIVE_HIGH>,
                     <&pca9536 2 GPIO_ACTIVE_HIGH>;
@@ -42,6 +45,7 @@
         led_off: led_off {
             compatible = "zmk,behavior-led-control";
             #binding-cells = <0>;
+            status = "okay";
             gpios = <&pca9536 0 GPIO_ACTIVE_HIGH>,
                     <&pca9536 1 GPIO_ACTIVE_HIGH>,
                     <&pca9536 2 GPIO_ACTIVE_HIGH>;
