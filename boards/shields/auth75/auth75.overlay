@@ -104,7 +104,7 @@
         green_led: green_led {
             gpio-hog;
             gpios = <1 GPIO_ACTIVE_HIGH>;
-            output-low;
+            output-high;
             line-name = "footprint-led-green";
         };
 
