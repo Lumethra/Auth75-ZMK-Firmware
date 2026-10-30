@@ -19,17 +19,17 @@
         compatible = "gpio-leds";
 
         white_led: led_0 {
-            gpios = <&pca9536 0 GPIO_ACTIVE_HIGH>;
+            gpios = <&pca9536 0 GPIO_ACTIVE_LOW>;
             label = "Fingerprint White LED";
         };
 
         green_led: led_1 {
-            gpios = <&pca9536 1 GPIO_ACTIVE_HIGH>;
+            gpios = <&pca9536 1 GPIO_ACTIVE_LOW>;
             label = "Fingerprint Green LED";
         };
 
         red_led: led_2 {
-            gpios = <&pca9536 2 GPIO_ACTIVE_HIGH>;
+            gpios = <&pca9536 2 GPIO_ACTIVE_LOW>;
             label = "Fingerprint Red LED";
         };
     };
