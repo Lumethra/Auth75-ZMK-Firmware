@@ -1,0 +1,11 @@
+description: Auth75 PCA9536 4-bit I2C GPIO expander
+compatible: "auth75,pca9536"
+include: [gpio-controller.yaml, i2c-device.yaml]
+
+properties:
+  "#gpio-cells":
+    const: 2
+
+gpio-cells:
+  - pin
+  - flags
