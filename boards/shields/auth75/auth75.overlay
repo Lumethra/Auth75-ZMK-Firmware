@@ -93,5 +93,26 @@
         #gpio-cells = <2>;
         ngpios = <4>;
         status = "okay";
+
+        white_led: white_led {
+            gpio-hog;
+            gpios = <0 GPIO_ACTIVE_HIGH>;
+            output-low;
+            line-name = "footprint-led-white";
+        };
+
+        green_led: green_led {
+            gpio-hog;
+            gpios = <1 GPIO_ACTIVE_HIGH>;
+            output-low;
+            line-name = "footprint-led-green";
+        };
+
+        red_led: red_led {
+            gpio-hog;
+            gpios = <2 GPIO_ACTIVE_HIGH>;
+            output-low;
+            line-name = "footprint-led-red";
+        };
     };
 };
