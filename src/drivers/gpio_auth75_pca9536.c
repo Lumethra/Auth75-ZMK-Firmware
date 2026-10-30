@@ -140,13 +140,26 @@ static int auth75_pca9536_init(const struct device *dev) {
     int ret;
 
     if (!device_is_ready(cfg->bus.bus)) {
+        LOG_ERR("I2C bus %s is not ready", cfg->bus.bus->name);
         return -ENODEV;
     }
 
     k_sem_init(&data->lock, 1, 1);
+    LOG_INF("initializing PCA9536 at I2C address 0x%02x", cfg->bus.addr);
     ret = auth75_pca9536_write(cfg, PCA9536_OUTPUT, 0);
+    if (ret != 0) {
+        LOG_ERR("failed writing output register 0x%02x: %d",
+                PCA9536_OUTPUT, ret);
+    }
     if (ret == 0) {
         ret = auth75_pca9536_write(cfg, PCA9536_CONFIG, 0x0F);
+        if (ret != 0) {
+            LOG_ERR("failed writing config register 0x%02x: %d",
+                    PCA9536_CONFIG, ret);
+        }
+    }
+    if (ret == 0) {
+        LOG_INF("PCA9536 initialized");
     }
     return ret;
 }
