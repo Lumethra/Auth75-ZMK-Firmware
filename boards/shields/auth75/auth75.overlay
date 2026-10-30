@@ -3,26 +3,50 @@
 // instructions.
 
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <dt-bindings/gpio/gpio.h>
 
 #include "auth75-layouts.dtsi"
 
 / {
-    leds {
-        compatible = "gpio-leds";
-
-        white_led: led_0 {
-            gpios = <&pca9536 0 GPIO_ACTIVE_HIGH>;
-            label = "Fingerprint White LED";
+    behaviors {
+        led_white: led_white {
+            compatible = "zmk,behavior-led-control";
+            #binding-cells = <0>;
+            gpios = <&pca9536 0 GPIO_ACTIVE_HIGH>,
+                    <&pca9536 1 GPIO_ACTIVE_HIGH>,
+                    <&pca9536 2 GPIO_ACTIVE_HIGH>;
+            target = <0>;
+            state = <1>;
         };
 
-        green_led: led_1 {
-            gpios = <&pca9536 1 GPIO_ACTIVE_HIGH>;
-            label = "Fingerprint Green LED";
+        led_green: led_green {
+            compatible = "zmk,behavior-led-control";
+            #binding-cells = <0>;
+            gpios = <&pca9536 0 GPIO_ACTIVE_HIGH>,
+                    <&pca9536 1 GPIO_ACTIVE_HIGH>,
+                    <&pca9536 2 GPIO_ACTIVE_HIGH>;
+            target = <1>;
+            state = <1>;
         };
 
-        red_led: led_2 {
-            gpios = <&pca9536 2 GPIO_ACTIVE_HIGH>;
-            label = "Fingerprint Red LED";
+        led_red: led_red {
+            compatible = "zmk,behavior-led-control";
+            #binding-cells = <0>;
+            gpios = <&pca9536 0 GPIO_ACTIVE_HIGH>,
+                    <&pca9536 1 GPIO_ACTIVE_HIGH>,
+                    <&pca9536 2 GPIO_ACTIVE_HIGH>;
+            target = <2>;
+            state = <1>;
+        };
+
+        led_off: led_off {
+            compatible = "zmk,behavior-led-control";
+            #binding-cells = <0>;
+            gpios = <&pca9536 0 GPIO_ACTIVE_HIGH>,
+                    <&pca9536 1 GPIO_ACTIVE_HIGH>,
+                    <&pca9536 2 GPIO_ACTIVE_HIGH>;
+            target = <0>;
+            state = <0>;
         };
     };
 
