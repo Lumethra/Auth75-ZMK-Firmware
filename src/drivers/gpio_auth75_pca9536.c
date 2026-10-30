@@ -17,6 +17,7 @@ LOG_MODULE_REGISTER(auth75_pca9536, CONFIG_GPIO_LOG_LEVEL);
 #define PCA9536_OUTPUT 0x01
 #define PCA9536_POLARITY 0x02
 #define PCA9536_CONFIG 0x03
+#define PCA9536_I2C_RETRIES 3
 
 struct auth75_pca9536_config {
     struct gpio_driver_config common;
@@ -32,7 +33,17 @@ struct auth75_pca9536_data {
 
 static int auth75_pca9536_write(const struct auth75_pca9536_config *cfg,
                                 uint8_t reg, uint8_t value) {
-    return i2c_reg_write_byte_dt(&cfg->bus, reg, value);
+    int ret;
+
+    for (int attempt = 0; attempt < PCA9536_I2C_RETRIES; attempt++) {
+        ret = i2c_reg_write_byte_dt(&cfg->bus, reg, value);
+        if (ret != -EAGAIN) {
+            return ret;
+        }
+        k_msleep(1);
+    }
+
+    return ret;
 }
 
 static int auth75_pca9536_configure(const struct device *dev, gpio_pin_t pin,
