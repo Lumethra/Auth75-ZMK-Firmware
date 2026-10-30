@@ -27,8 +27,8 @@
         fn {
             display-name = "FN Layer";
             bindings = <
-                &led_off    &led_white  &led_green  &led_red    &trans      &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans
+                &trans      &led_off    &led_white  &led_green  &led_red    &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans

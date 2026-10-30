@@ -1,0 +1,4 @@
+config AUTH75_LED_CONTROL
+    bool "Auth75 LED control behavior"
+    default y
+    depends on DT_HAS_ZMK_BEHAVIOR_LED_CONTROL_ENABLED
