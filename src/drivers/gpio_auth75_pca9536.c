@@ -18,6 +18,7 @@ LOG_MODULE_REGISTER(auth75_pca9536, CONFIG_GPIO_LOG_LEVEL);
 #define PCA9536_POLARITY 0x02
 #define PCA9536_CONFIG 0x03
 #define PCA9536_I2C_RETRIES 3
+#define PCA9536_LED_OUTPUTS 0x08
 
 struct auth75_pca9536_config {
     struct gpio_driver_config common;
@@ -195,7 +196,8 @@ static int auth75_pca9536_init(const struct device *dev) {
                 PCA9536_OUTPUT, ret);
     }
     if (ret == 0) {
-        ret = auth75_pca9536_write(cfg, PCA9536_CONFIG, 0x0F);
+        ret = auth75_pca9536_write(cfg, PCA9536_CONFIG,
+                                   PCA9536_LED_OUTPUTS);
         if (ret != 0) {
             LOG_ERR("failed writing config register 0x%02x: %d",
                     PCA9536_CONFIG, ret);
@@ -219,7 +221,7 @@ static DEVICE_API(gpio, auth75_pca9536_api) = {
 #define AUTH75_PCA9536_INIT(inst)                                             \
     static struct auth75_pca9536_data auth75_pca9536_data_##inst = {          \
         .output = 0,                                                           \
-        .config = 0x0F,                                                        \
+        .config = PCA9536_LED_OUTPUTS,                                          \
     };                                                                         \
     static const struct auth75_pca9536_config auth75_pca9536_config_##inst = { \
         .common = {                                                            \
