@@ -117,8 +117,6 @@
         compatible = "gpio-i2c";
         status = "okay";
         clock-frequency = <I2C_BITRATE_STANDARD>;
-        pinctrl-0 = <&gpio_i2c_default>;
-        pinctrl-names = "default";
         scl-gpios = <&gpio0 27 GPIO_OPEN_DRAIN>;
         sda-gpios = <&gpio0 26 GPIO_OPEN_DRAIN>;
 
