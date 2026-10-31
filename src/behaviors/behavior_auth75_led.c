@@ -27,7 +27,7 @@ static int auth75_led_binding_pressed(struct zmk_behavior_binding *binding,
 
     ARG_UNUSED(event);
 
-    if (binding->param1 < AUTH75_LED_OFF || binding->param1 > AUTH75_LED_RED) {
+    if (binding->param1 < OFF || binding->param1 > RED) {
         LOG_ERR("Invalid Auth75 LED command: %d", binding->param1);
         return -EINVAL;
     }
@@ -40,11 +40,11 @@ static int auth75_led_binding_pressed(struct zmk_behavior_binding *binding,
     }
 
     output = 0;
-    if (binding->param1 == AUTH75_LED_WHITE) {
+    if (binding->param1 == WHITE) {
         output = BIT(0);
-    } else if (binding->param1 == AUTH75_LED_GREEN) {
+    } else if (binding->param1 == GREEN) {
         output = BIT(1);
-    } else if (binding->param1 == AUTH75_LED_RED) {
+    } else if (binding->param1 == RED) {
         output = BIT(2);
     }
 

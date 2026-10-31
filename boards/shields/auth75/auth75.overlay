@@ -9,7 +9,7 @@
 
 / {
     behaviors {
-        aled: aled {
+        led: led {
             compatible = "zmk,behavior-auth75-led";
             #binding-cells = <1>;
         };

@@ -29,7 +29,7 @@
             display-name = "FN Layer";
             bindings = <
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans
-                &trans      &aled AUTH75_LED_OFF    &aled AUTH75_LED_WHITE  &aled AUTH75_LED_GREEN  &aled AUTH75_LED_RED    &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans
+                &trans      &led OFF    &led WHITE  &led GREEN  &led RED    &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans
                 &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans          &trans      &trans      &trans
