@@ -17,34 +17,12 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #if DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT)
 
-static const struct gpio_dt_spec white_led =
-    GPIO_DT_SPEC_GET(DT_NODELABEL(white_led), gpios);
-static const struct gpio_dt_spec green_led =
-    GPIO_DT_SPEC_GET(DT_NODELABEL(green_led), gpios);
-static const struct gpio_dt_spec red_led =
-    GPIO_DT_SPEC_GET(DT_NODELABEL(red_led), gpios);
-
-static int set_led(const struct gpio_dt_spec *led, bool on) {
-    int ret;
-
-    if (!device_is_ready(led->port)) {
-        LOG_ERR("Auth75 LED GPIO controller is not ready: %s", led->port->name);
-        return -ENODEV;
-    }
-
-    ret = gpio_pin_configure_dt(led, GPIO_OUTPUT_INACTIVE);
-    if (ret < 0) {
-        LOG_ERR("Auth75 LED configure failed on pin %u: %d", led->pin, ret);
-        return ret;
-    }
-
-    ret = gpio_pin_set_dt(led, on);
-    LOG_INF("Auth75 LED pin %u set to %d (ret %d)", led->pin, on, ret);
-    return ret;
-}
+static const struct device *const pca9536 =
+    DEVICE_DT_GET(DT_NODELABEL(pca9536));
 
 static int auth75_led_binding_pressed(struct zmk_behavior_binding *binding,
                                       struct zmk_behavior_binding_event event) {
+    gpio_port_value_t output;
     int ret;
 
     ARG_UNUSED(event);
@@ -56,17 +34,24 @@ static int auth75_led_binding_pressed(struct zmk_behavior_binding *binding,
 
     LOG_INF("Auth75 LED command: %d", binding->param1);
 
-    ret = set_led(&white_led, binding->param1 == AUTH75_LED_WHITE);
-    if (ret < 0) {
-        return ret;
+    if (!device_is_ready(pca9536)) {
+        LOG_ERR("Auth75 LED GPIO controller is not ready: %s", pca9536->name);
+        return -ENODEV;
     }
 
-    ret = set_led(&green_led, binding->param1 == AUTH75_LED_GREEN);
-    if (ret < 0) {
-        return ret;
+    output = 0;
+    if (binding->param1 == AUTH75_LED_WHITE) {
+        output = BIT(0);
+    } else if (binding->param1 == AUTH75_LED_GREEN) {
+        output = BIT(1);
+    } else if (binding->param1 == AUTH75_LED_RED) {
+        output = BIT(2);
     }
 
-    return set_led(&red_led, binding->param1 == AUTH75_LED_RED);
+    ret = gpio_port_set_masked_raw(pca9536, BIT_MASK(3), output);
+    LOG_INF("Auth75 LED output mask 0x%02x value 0x%02x (ret %d)",
+            BIT_MASK(3), output, ret);
+    return ret;
 }
 
 static int auth75_led_binding_released(struct zmk_behavior_binding *binding,
