@@ -8,4 +8,13 @@
             input-schmitt-enable;
         };
     };
+
+    gpio_i2c_default: gpio_i2c_default {
+        group1 {
+            pinmux = <RP2XXX_PINMUX(26, RP2_PINCTRL_GPIO_FUNC_SIO)>,
+                     <RP2XXX_PINMUX(27, RP2_PINCTRL_GPIO_FUNC_SIO)>;
+            input-enable;
+            input-schmitt-enable;
+        };
+    };
 };
