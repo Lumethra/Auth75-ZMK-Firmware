@@ -112,7 +112,7 @@
     status = "disabled";
 };
 
-i2c_gpio: i2c_gpio {
+i2c_gpio: i2c-gpio {
     compatible = "gpio-i2c";
     status = "okay";
     clock-frequency = <I2C_BITRATE_STANDARD>;
