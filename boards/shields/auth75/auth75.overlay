@@ -112,21 +112,23 @@
     status = "disabled";
 };
 
-i2c_gpio: i2c-gpio {
-    compatible = "gpio-i2c";
-    status = "okay";
-    clock-frequency = <I2C_BITRATE_STANDARD>;
-    pinctrl-0 = <&gpio_i2c_default>;
-    pinctrl-names = "default";
-    scl-gpios = <&gpio0 27 GPIO_OPEN_DRAIN>;
-    sda-gpios = <&gpio0 26 GPIO_OPEN_DRAIN>;
-
-    pca9536: pca9536@41 {
-        compatible = "auth75,pca9536";
-        reg = <0x41>;
-        gpio-controller;
-        #gpio-cells = <2>;
-        ngpios = <4>;
+/ {
+    i2c_gpio: i2c-gpio {
+        compatible = "gpio-i2c";
         status = "okay";
+        clock-frequency = <I2C_BITRATE_STANDARD>;
+        pinctrl-0 = <&gpio_i2c_default>;
+        pinctrl-names = "default";
+        scl-gpios = <&gpio0 27 GPIO_OPEN_DRAIN>;
+        sda-gpios = <&gpio0 26 GPIO_OPEN_DRAIN>;
+
+        pca9536: pca9536@41 {
+            compatible = "auth75,pca9536";
+            reg = <0x41>;
+            gpio-controller;
+            #gpio-cells = <2>;
+            ngpios = <4>;
+            status = "okay";
+        };
     };
 };
