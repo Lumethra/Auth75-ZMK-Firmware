@@ -175,7 +175,12 @@ static int auth75_pca9536_init(const struct device *dev) {
     }
 
     k_sem_init(&data->lock, 1, 1);
-    LOG_INF("initializing PCA9536 at I2C address 0x%02x", cfg->bus.addr);
+    LOG_INF("initializing PCA9536 at I2C address 0x%02x on bus %s",
+            cfg->bus.addr, cfg->bus.bus->name);
+#if defined(CONFIG_I2C_DW_CLOCK_SPEED)
+    LOG_INF("compiled I2C_DW clock speed: %d MHz",
+            CONFIG_I2C_DW_CLOCK_SPEED);
+#endif
     ret = auth75_pca9536_read(cfg, PCA9536_INPUT, &input);
     if (ret != 0) {
         LOG_ERR("PCA9536 ACK/register read failed at 0x%02x: %d",
