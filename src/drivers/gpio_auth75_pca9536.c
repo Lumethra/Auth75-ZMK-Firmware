@@ -48,6 +48,22 @@ static int auth75_pca9536_write(const struct auth75_pca9536_config *cfg,
     return ret;
 }
 
+static int auth75_pca9536_read(const struct auth75_pca9536_config *cfg,
+                               uint8_t reg, uint8_t *value) {
+    int ret;
+
+    for (int attempt = 0; attempt < PCA9536_I2C_RETRIES; attempt++) {
+        ret = i2c_reg_read_byte_dt(&cfg->bus, reg, value);
+        if (ret != -EAGAIN) {
+            return ret;
+        }
+        (void)i2c_recover_bus(cfg->bus.bus);
+        k_msleep(1);
+    }
+
+    return ret;
+}
+
 static int auth75_pca9536_configure(const struct device *dev, gpio_pin_t pin,
                                     gpio_flags_t flags) {
     const struct auth75_pca9536_config *cfg = dev->config;
@@ -150,6 +166,7 @@ static int auth75_pca9536_get(const struct device *dev, uint32_t *value) {
 static int auth75_pca9536_init(const struct device *dev) {
     const struct auth75_pca9536_config *cfg = dev->config;
     struct auth75_pca9536_data *data = dev->data;
+    uint8_t input;
     int ret;
 
     if (!device_is_ready(cfg->bus.bus)) {
@@ -159,6 +176,14 @@ static int auth75_pca9536_init(const struct device *dev) {
 
     k_sem_init(&data->lock, 1, 1);
     LOG_INF("initializing PCA9536 at I2C address 0x%02x", cfg->bus.addr);
+    ret = auth75_pca9536_read(cfg, PCA9536_INPUT, &input);
+    if (ret != 0) {
+        LOG_ERR("PCA9536 ACK/register read failed at 0x%02x: %d",
+                PCA9536_INPUT, ret);
+        return ret;
+    }
+    LOG_INF("PCA9536 responded; input register: 0x%02x", input);
+
     ret = auth75_pca9536_write(cfg, PCA9536_OUTPUT, 0);
     if (ret != 0) {
         LOG_ERR("failed writing output register 0x%02x: %d",
